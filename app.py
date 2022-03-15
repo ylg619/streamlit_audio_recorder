@@ -5,7 +5,7 @@ from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 
 
-stt_button = Button(label="Speak", width=100)
+stt_button  = Button(label="Speak", width=100)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
 //Fiwed Time of Recording
@@ -54,4 +54,10 @@ if result:
         #get rid of metadata (data:audio/wav;base64,)
         b64_str = b64_str_metadata.split('base64,')[1]
         decoded = base64.b64decode(b64_str)
+
+        #save it server side if needed
+        with open('test.wav','wb') as f:
+            f.write(decoded)
+
+        #Or read directly wav file in front
         st.audio(decoded)
