@@ -9,7 +9,7 @@ stt_button = Button(label="Speak", width=100)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
 //Fiwed Time of Recording
-const timeMilliSec = 5000
+const timeMilliSec = 5000 //Fixed 5sec records ... change here the value
 navigator.mediaDevices.getUserMedia({ audio: true })
   .then(stream => {
     const mediaRecorder = new MediaRecorder(stream);
