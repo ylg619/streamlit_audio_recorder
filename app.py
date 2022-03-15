@@ -53,18 +53,25 @@ result = streamlit_bokeh_events(
 if result:
     if "GET_AUDIO_BASE64" in result:
         b64_str_metadata = result.get("GET_AUDIO_BASE64")
-        #get rid of metadata (data:audio/wav;base64,)
-        b64_str = b64_str_metadata.split('base64,')[1]
-        decoded = base64.b64decode(b64_str)
+        metadata_string = "data:audio/wav;base64,"
+        if len(b64_str_metadata)>len(metadata_string):
+            #get rid of metadata (data:audio/wav;base64,)
 
-        st.write("Read sound from Frontend")
-        st.audio(decoded)
+            if b64_str_metadata.startswith(metadata_string):
+                b64_str = b64_str_metadata[len(metadata_string):]
+            else:
+                b64_str = b64_str_metadata
 
-        #save it server side if needed
-        with open('test.wav','wb') as f:
-            f.write(decoded)
+            decoded = base64.b64decode(b64_str)
 
-        decoded_file = open('test.wav','rb')
+            st.write("Read sound from Frontend")
+            st.audio(decoded)
 
-        st.write("Read sound by saving in server and reloading file")
-        st.audio(decoded_file)
+            #save it server side if needed
+            with open('test.wav','wb') as f:
+                f.write(decoded)
+
+            decoded_file = open('test.wav','rb')
+
+            st.write("Read sound by saving in server and reloading file")
+            st.audio(decoded_file)
