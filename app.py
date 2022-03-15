@@ -5,6 +5,9 @@ from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 
 
+
+
+
 stt_button  = Button(label="Speak", width=100)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
@@ -55,9 +58,14 @@ if result:
         b64_str = b64_str_metadata.split('base64,')[1]
         decoded = base64.b64decode(b64_str)
 
+        st.write("Read sound from Frontend")
+        st.audio(decoded)
+
         #save it server side if needed
         with open('test.wav','wb') as f:
             f.write(decoded)
 
-        #Or read directly wav file in front
-        st.audio(decoded)
+        decoded_file = open('test.wav','rb')
+
+        st.write("Read sound by saving in server and reloading file")
+        st.audio(decoded_file)
