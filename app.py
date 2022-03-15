@@ -11,7 +11,7 @@ from streamlit_bokeh_events import streamlit_bokeh_events
 stt_button  = Button(label="Speak", width=100)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
-const timeMilliSec = 5000 //Fixed 5sec records ... change here the value
+const timeMilliSec = 5000 //Fixed 5sec recording ... change here the value
 navigator.mediaDevices.getUserMedia({ audio: true })
   .then(stream => {
     const mediaRecorder = new MediaRecorder(stream);
