@@ -1,0 +1,2 @@
+bokeh
+streamlit_bokeh_events
