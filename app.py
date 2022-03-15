@@ -3,7 +3,7 @@ import streamlit as st
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
-
+from pydub import AudioSegment
 
 
 
@@ -68,10 +68,13 @@ if result:
             st.audio(decoded)
 
             #save it server side if needed
-            with open('test.wav','wb') as f:
+            uploaded_file = 'test.wav'
+            with open(uploaded_file,'wb') as f:
                 f.write(decoded)
 
-            decoded_file = open('test.wav','rb')
+            #convert File to wav and save it again
+            wav = AudioSegment.from_file(uploaded_file)
+            getaudio = wav.export(uploaded_file, format="wav")
 
             st.write("Read sound by saving in server and reloading file")
-            st.audio(decoded_file)
+            st.audio(uploaded_file)
